@@ -1,6 +1,6 @@
 package mzx.mymarvel.mapper
 
-import mzx.mymarvel.characterlist.domain.element.CharacterElement
+import mzx.mymarvel.domain.element.CharacterElement
 import mzx.mymarvel.ui.model.MarvelCharacterUi
 import javax.inject.Inject
 

@@ -10,8 +10,8 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import mzx.mymarvel.characterlist.CharacterListViewModel.CharacterListState.Companion.createInitState
-import mzx.mymarvel.characterlist.domain.element.CharacterElement
-import mzx.mymarvel.characterlist.domain.usecase.GetCharacterListUseCase
+import mzx.mymarvel.domain.element.CharacterElement
+import mzx.mymarvel.domain.usecase.GetCharacterListUseCase
 import mzx.mymarvel.mapper.CharacterElementMapper
 import org.junit.Assert.assertEquals
 import org.spekframework.spek2.Spek

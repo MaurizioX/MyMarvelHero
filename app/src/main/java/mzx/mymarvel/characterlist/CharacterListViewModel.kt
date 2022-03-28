@@ -8,9 +8,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import mzx.mymarvel.characterlist.CharacterListViewModel.CharacterListState.Companion.createInitState
-import mzx.mymarvel.characterlist.domain.element.CharacterElement
-import mzx.mymarvel.characterlist.domain.usecase.DomainError
-import mzx.mymarvel.characterlist.domain.usecase.GetCharacterListUseCase
+import mzx.mymarvel.domain.element.CharacterElement
+import mzx.mymarvel.domain.usecase.DomainError
+import mzx.mymarvel.domain.usecase.GetCharacterListUseCase
 import mzx.mymarvel.mapper.CharacterElementMapper
 import mzx.mymarvel.ui.model.MarvelCharacterUi
 import mzx.mymarvel.ui.model.State

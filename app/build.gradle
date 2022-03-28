@@ -20,6 +20,10 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        buildConfigField "String", "URL", "\"developer.marvel.com\""
+        buildConfigField "String", "PUB_API_KEY", "\"053b23e67e8c9daabbbc4a18fb37deb8\""
+        buildConfigField "String", "PRIV_API_KEY", "\"142a5953bce80b0d5fb5ffb70634e391d85894d1\""
     }
 
     buildTypes {
@@ -84,6 +88,9 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.38.1"
 
     implementation "io.arrow-kt:arrow-core:1.0.1"
+    implementation "com.squareup.okhttp3:okhttp:4.9.3"
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
 
     // spek
     testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek_version"
