@@ -44,7 +44,7 @@ object CharacterListViewModelTest : Spek({
                 val resultList by memoized { emptyList<CharacterElement>() }
                 beforeEachTest { coEvery { getCharacterListUseCase.action() } returns resultList.right() }
                 beforeEachTest {
-                    viewModel.onEvent(CharacterListViewModel.CharacterLisEvent.Init)
+                    viewModel.onEvent(CharacterListViewModel.CharacterListEvent.Init)
                 }
 
                 describe("Elements returned") {

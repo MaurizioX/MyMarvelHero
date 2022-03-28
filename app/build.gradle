@@ -21,7 +21,7 @@ android {
             useSupportLibrary true
         }
 
-        buildConfigField "String", "URL", "\"developer.marvel.com\""
+        buildConfigField "String", "URL", "\"https://gateway.marvel.com\""
         buildConfigField "String", "PUB_API_KEY", "\"053b23e67e8c9daabbbc4a18fb37deb8\""
         buildConfigField "String", "PRIV_API_KEY", "\"142a5953bce80b0d5fb5ffb70634e391d85894d1\""
     }
@@ -82,8 +82,10 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
     implementation 'androidx.activity:activity-compose:1.4.0'
+//    implementation "androidx.activity:activity-compose:${Versions.activityCompose}"
 
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
     implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-compiler:2.38.1"
 

@@ -20,8 +20,7 @@ import javax.inject.Inject
 class CharacterListViewModel @Inject constructor(
     private val getCharacterListUseCase: GetCharacterListUseCase,
     private val mapper: CharacterElementMapper
-) :
-    ViewModel() {
+) : ViewModel() {
 
     data class CharacterListState(
         val characters: List<MarvelCharacterUi> = emptyList(),
@@ -38,16 +37,16 @@ class CharacterListViewModel @Inject constructor(
         }
     }
 
-    sealed interface CharacterLisEvent {
-        object Init : CharacterLisEvent
+    sealed interface CharacterListEvent {
+        object Init : CharacterListEvent
     }
 
     private var _state by mutableStateOf(createInitState())
 
-    fun onEvent(characterLisEvent: CharacterLisEvent) {
+    fun onEvent(characterListEvent: CharacterListEvent) {
         viewModelScope.launch {
-            val currentState = when (characterLisEvent) {
-                CharacterLisEvent.Init -> {
+            val currentState = when (characterListEvent) {
+                CharacterListEvent.Init -> {
                     _state = state.isLoading()
                     getCharacterListUseCase.action().fold(::handleError, ::handleSuccess)
                 }

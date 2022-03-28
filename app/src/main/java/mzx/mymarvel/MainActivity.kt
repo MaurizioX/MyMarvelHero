@@ -1,5 +1,6 @@
 package mzx.mymarvel
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,9 +10,14 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
+import mzx.mymarvel.navigation.NavigationComponent
 import mzx.mymarvel.ui.theme.MyMarvelTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +28,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+
+                    val activity = LocalContext.current as? Activity
+                    val navController = rememberNavController()
+
+                    NavigationComponent(navController, activity)
+//                    val viewModel: CharacterListViewModel = hiltViewModel()
+//                    CharacterListScreen(
+//                        characterListState = viewModel.state,
+//                        eventHandler = viewModel::onEvent
+//                    )
                 }
             }
         }
