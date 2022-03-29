@@ -10,9 +10,8 @@ import mzx.mymarvel.domain.usecase.DomainError
 import javax.inject.Inject
 
 class DomainMapper @Inject constructor() {
-    fun map(dataError: DataError): Either<DomainError, List<CharacterElement>> = DomainError.Unknown.left()
+    fun map(dataError: DataError): Either<DataError, List<CharacterElement>> = dataError.left()
 
-    fun map(characterEntities: List<CharacterEntity>):  Either<DomainError, List<CharacterElement>>
-        = emptyList<CharacterElement>().right()
-
+    fun map(characterEntities: List<CharacterEntity>): Either<DomainError, List<CharacterEntity>> =
+        characterEntities.right()
 }

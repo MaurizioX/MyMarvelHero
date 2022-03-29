@@ -1,5 +1,14 @@
 package mzx.mymarvel.data.entity
-
-class CharacterEntity {
-
-}
+data class CharacterEntity(
+    val comics: ComicsEntity,
+    val description: String,
+    val events: EventsEntity,
+    val id: Int,
+    val modified: String,
+    val name: String,
+    val resourceURI: String,
+    val series: SeriesEntity,
+    val stories: StoriesEntity,
+    val thumbnail: ThumbnailEntity,
+    val urls: List<UrlEntity>
+)

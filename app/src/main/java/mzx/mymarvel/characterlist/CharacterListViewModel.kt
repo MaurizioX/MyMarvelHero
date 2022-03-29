@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import mzx.mymarvel.characterlist.CharacterListViewModel.CharacterListState.Companion.createInitState
+import mzx.mymarvel.data.entity.CharacterEntity
+import mzx.mymarvel.data.entity.DataError
 import mzx.mymarvel.domain.element.CharacterElement
 import mzx.mymarvel.domain.usecase.DomainError
 import mzx.mymarvel.domain.usecase.GetCharacterListUseCase
@@ -55,10 +57,10 @@ class CharacterListViewModel @Inject constructor(
         }
     }
 
-    private fun handleError(domainError: DomainError) = state.displayError()
+    private fun handleError(domainError: DataError) = state.displayError()
 
 
-    private fun handleSuccess(characters: List<CharacterElement>): CharacterListState =
+    private fun handleSuccess(characters: List<CharacterEntity>): CharacterListState =
         state.elementLoaded(characters = characters.map(mapper::map))
 
     val state: CharacterListState
