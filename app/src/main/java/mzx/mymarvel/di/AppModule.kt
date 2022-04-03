@@ -8,6 +8,8 @@ import dagger.hilt.components.SingletonComponent
 import mzx.mymarvel.BuildConfig
 import mzx.mymarvel.data.net.MarvelApiClient
 import mzx.mymarvel.data.net.NetworkInterceptor
+import mzx.mymarvel.data.net.NetworkParamFactory
+import mzx.mymarvel.data.net.NetworkParamFactoryImpl
 import mzx.mymarvel.data.service.CharacterService
 import mzx.mymarvel.data.service.impl.CharacterServiceImpl
 import okhttp3.Interceptor
@@ -26,7 +28,10 @@ interface AppModule {
     fun bindsCharacterService(characterServiceImpl: CharacterServiceImpl): CharacterService
 
     @Binds
-    fun providesInterceptor(interceptor: NetworkInterceptor): Interceptor
+    fun bindsInterceptor(interceptor: NetworkInterceptor): Interceptor
+
+    @Binds
+    fun bindsNetworkParamFactory(networkParamFactory: NetworkParamFactoryImpl): NetworkParamFactory
 
     companion object {
 

@@ -1,4 +1,3 @@
 package mzx.mymarvel.ui.model
 
-class MarvelCharacterUi {
-}
+data class MarvelCharacterUi(val name: String, val url: String)
