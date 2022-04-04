@@ -4,7 +4,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import mzx.mymarvel.domain.usecase.GetCharacterDetailUseCase
 import mzx.mymarvel.domain.usecase.GetCharacterListUseCase
+import mzx.mymarvel.domain.usecase.impl.GetCharacterDetailUseCaseImpl
 import mzx.mymarvel.domain.usecase.impl.GetCharacterListUseCaseImpl
 
 @Module
@@ -12,4 +14,7 @@ import mzx.mymarvel.domain.usecase.impl.GetCharacterListUseCaseImpl
 interface ViewModelModule {
     @Binds
     fun bindGetCharacterListUseCase(getCharacterListUseCaseImpl: GetCharacterListUseCaseImpl): GetCharacterListUseCase
+
+    @Binds
+    fun bindGetCharacterDetailUseCase(GetCharacterDetailUseCase: GetCharacterDetailUseCaseImpl): GetCharacterDetailUseCase
 }

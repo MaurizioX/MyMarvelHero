@@ -6,4 +6,5 @@ import mzx.mymarvel.data.entity.DataError
 
 interface CharacterService {
     suspend fun getAllCharacters(): Either<DataError, List<CharacterEntity>>
+    suspend fun fetchCharacterDetail(characterID: String): Either<DataError, String>
 }

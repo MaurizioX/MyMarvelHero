@@ -22,5 +22,22 @@ object NavigationDirections {
 
     }
 
+}
 
+object CharacterDetailNavigation {
+
+    const val KEY_CHARACTER_ID = "characterId"
+    val route = "character/character?$KEY_CHARACTER_ID={$KEY_CHARACTER_ID}"
+    val currentArguments = listOf(
+        navArgument(KEY_CHARACTER_ID) { type = NavType.IntType }
+    )
+
+    fun characterDetail(
+        characterId: Int,
+    ) = object : NavigationCommand {
+
+        override val arguments = currentArguments
+
+        override val destination = "character/character?$KEY_CHARACTER_ID=$characterId"
+    }
 }

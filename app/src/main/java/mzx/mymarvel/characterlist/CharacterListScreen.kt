@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,18 +19,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import mzx.mymarvel.R
+import mzx.mymarvel.navigation.CharacterDetailNavigation
 import mzx.mymarvel.ui.model.MarvelCharacterUi
 import mzx.mymarvel.ui.model.State
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CharacterListScreen(
     characterListState: CharacterListViewModel.CharacterListState,
-    eventHandler: (CharacterListViewModel.CharacterListEvent) -> Unit
+    eventHandler: (CharacterListViewModel.CharacterListEvent) -> Unit,
+    navController: NavHostController
 ) {
     LaunchedEffect(key1 = characterListState) {
-        if (characterListState.isLoading == State.INIT) {
+        if (characterListState.state == State.INIT) {
             eventHandler(CharacterListViewModel.CharacterListEvent.Init)
         }
     }
@@ -40,13 +45,16 @@ fun CharacterListScreen(
             .fillMaxHeight()
     ) {
         items(characterListState.characters) { item ->
-            CharacterItem(item)
+            CharacterItem(item) {
+                navController.navigate(CharacterDetailNavigation.characterDetail(it.characterId).destination)
+            }
         }
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
-fun CharacterItem(marvelCharacterUi: MarvelCharacterUi) {
+fun CharacterItem(marvelCharacterUi: MarvelCharacterUi, onClick: (MarvelCharacterUi) -> Unit) {
     val painter =
         rememberImagePainter(data = marvelCharacterUi.url,
             builder = {
@@ -59,7 +67,8 @@ fun CharacterItem(marvelCharacterUi: MarvelCharacterUi) {
         border = BorderStroke(1.dp, Color.Black),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp, vertical = 5.dp)
+            .padding(horizontal = 10.dp, vertical = 5.dp),
+        onClick = { onClick(marvelCharacterUi) }
     ) {
         Row(modifier = Modifier.padding(10.dp)) {
             Image(
@@ -99,6 +108,7 @@ fun CharacterItem(marvelCharacterUi: MarvelCharacterUi) {
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 @Preview
 fun CharacterItemPreview() {
@@ -106,7 +116,7 @@ fun CharacterItemPreview() {
         marvelCharacterUi = MarvelCharacterUi(
             "Hulk",
             "http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16.jpg", "normal date",
-            description = "Just a description"
-        )
+            description = "Just a description", characterId = 1
+        ), {}
     )
 }

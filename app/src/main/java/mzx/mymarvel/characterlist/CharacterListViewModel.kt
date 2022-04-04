@@ -10,8 +10,6 @@ import kotlinx.coroutines.launch
 import mzx.mymarvel.characterlist.CharacterListViewModel.CharacterListState.Companion.createInitState
 import mzx.mymarvel.data.entity.CharacterEntity
 import mzx.mymarvel.data.entity.DataError
-import mzx.mymarvel.domain.element.CharacterElement
-import mzx.mymarvel.domain.usecase.DomainError
 import mzx.mymarvel.domain.usecase.GetCharacterListUseCase
 import mzx.mymarvel.mapper.CharacterElementMapper
 import mzx.mymarvel.ui.model.MarvelCharacterUi
@@ -26,11 +24,11 @@ class CharacterListViewModel @Inject constructor(
 
     data class CharacterListState(
         val characters: List<MarvelCharacterUi> = emptyList(),
-        val isLoading: State = State.INIT
+        val state: State = State.INIT
     ) {
-        fun isLoading(): CharacterListState = copy(isLoading = State.LOADING)
+        fun isLoading(): CharacterListState = copy(state = State.LOADING)
         fun elementLoaded(characters: List<MarvelCharacterUi>): CharacterListState =
-            copy(characters = characters, isLoading = State.LOADED)
+            copy(characters = characters, state = State.LOADED)
 
         fun displayError(): CharacterListState = copy()
 

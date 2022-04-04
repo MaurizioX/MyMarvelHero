@@ -11,7 +11,8 @@ class CharacterElementMapper @Inject constructor() {
             name = characterElement.name,
             url = "${characterElement.thumbnail.path}.${characterElement.thumbnail.extension}",
             modifiedDate = df.format(characterElement.modified),
-            description = characterElement.description
+            description = characterElement.description,
+            characterId = characterElement.id
         )
 }
 
