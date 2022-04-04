@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MyMarvel</string>
     <string name="marvel_hero_img">Hero Image</string>
+    <string name="modified_date">Modified %1$s</string>
 </resources>

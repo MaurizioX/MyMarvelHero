@@ -1,5 +1,6 @@
 package mzx.mymarvel.di
 
+import com.google.gson.GsonBuilder
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -40,7 +41,11 @@ interface AppModule {
             Retrofit.Builder()
                 .baseUrl(BuildConfig.URL)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(
+                    GsonConverterFactory.create(
+                        GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").create()
+                    )
+                )
                 .build().create()
 
         @Provides

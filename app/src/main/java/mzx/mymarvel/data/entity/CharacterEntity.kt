@@ -1,10 +1,13 @@
 package mzx.mymarvel.data.entity
+
+import java.util.*
+
 data class CharacterEntity(
     val comics: ComicsEntity,
     val description: String,
     val events: EventsEntity,
     val id: Int,
-    val modified: String,
+    val modified: Date,
     val name: String,
     val resourceURI: String,
     val series: SeriesEntity,

@@ -2,6 +2,7 @@ package mzx.mymarvel.data.net.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class Result(
     @SerializedName("comics")
@@ -13,7 +14,7 @@ data class Result(
     @SerializedName("id")
     val id: Int,
     @SerializedName("modified")
-    val modified: String,
+    val modified: Date,
     @SerializedName("name")
     val name: String,
     @SerializedName("resourceURI")

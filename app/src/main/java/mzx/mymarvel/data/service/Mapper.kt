@@ -1,10 +1,11 @@
 package mzx.mymarvel.data.service
 
 import mzx.mymarvel.data.entity.*
+import mzx.mymarvel.data.net.NetworkParamFactory
 import mzx.mymarvel.data.net.model.*
 import javax.inject.Inject
 
-class Mapper @Inject constructor() {
+class Mapper @Inject constructor(private val networkParamFactory: NetworkParamFactory) {
     fun map(result: Result): CharacterEntity = CharacterEntity(
         comics = map(result.comics),
         description = result.description,
@@ -12,7 +13,7 @@ class Mapper @Inject constructor() {
         id = result.id,
         modified = result.modified,
         name = result.name,
-        resourceURI = result.resourceURI,
+        resourceURI = result.resourceURI.addUrlParams(networkParamFactory.getParam()),
         series = map(result.series),
         stories = map(result.stories),
         thumbnail = map(result.thumbnail),
@@ -57,3 +58,7 @@ class Mapper @Inject constructor() {
     private fun map(item: Item): ItemEntity =
         ItemEntity(name = item.name, resourceURI = item.resourceURI, type = item.type)
 }
+
+private fun String.addUrlParams(param: List<Pair<String, String>>): String =
+    "$this?${param.map { "${it.first}=${it.second}" }.reduce { acc, value -> "$acc&$value" }}"
+
