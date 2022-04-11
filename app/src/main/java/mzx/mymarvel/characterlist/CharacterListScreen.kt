@@ -22,9 +22,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import mzx.mymarvel.R
+import mzx.mymarvel.characterdetail.DisplayLoadingScreen
 import mzx.mymarvel.navigation.CharacterDetailNavigation
 import mzx.mymarvel.ui.model.MarvelCharacterUi
-import mzx.mymarvel.ui.model.State
+import mzx.mymarvel.ui.model.Status
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -34,22 +35,28 @@ fun CharacterListScreen(
     navController: NavHostController
 ) {
     LaunchedEffect(key1 = characterListState) {
-        if (characterListState.state == State.INIT) {
+        if (characterListState.status == Status.INIT) {
             eventHandler(CharacterListViewModel.CharacterListEvent.Init)
         }
     }
+    if (characterListState.status == Status.LOADING) {
+        DisplayLoadingScreen("")
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-    ) {
-        items(characterListState.characters) { item ->
-            CharacterItem(item) {
-                navController.navigate(CharacterDetailNavigation.characterDetail(it.characterId).destination)
+    } else {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+        ) {
+            items(characterListState.characters) { item ->
+                CharacterItem(item) {
+                    navController.navigate(CharacterDetailNavigation.characterDetail(it.characterId).destination)
+                }
             }
         }
     }
+
+
 }
 
 @ExperimentalMaterialApi
@@ -59,7 +66,6 @@ fun CharacterItem(marvelCharacterUi: MarvelCharacterUi, onClick: (MarvelCharacte
         rememberImagePainter(data = marvelCharacterUi.url,
             builder = {
                 transformations(
-//                    GrayscaleTransformation(),       // Gray Scale Transformation
                 )
             })
     Card(
@@ -115,8 +121,13 @@ fun CharacterItemPreview() {
     CharacterItem(
         marvelCharacterUi = MarvelCharacterUi(
             "Hulk",
-            "http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16.jpg", "normal date",
-            description = "Just a description", characterId = 1
+            "http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16.jpg",
+            "normal date",
+            description = "Just a description",
+            characterId = 1,
+            comics = emptyList(),
+            series = emptyList(),
+            stories = emptyList()
         ), {}
     )
 }

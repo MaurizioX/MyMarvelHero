@@ -10,5 +10,5 @@ interface MarvelApiClient {
     suspend fun getMarvelCharacters(): Response<MarvelListResponse>
 
     @GET("/v1/public/characters/{id}")
-    suspend fun getMarvelCharacterDetail(@Path("id") characterId: String): Response<String>
+    suspend fun getMarvelCharacterDetail(@Path("id") characterId: Int): Response<MarvelListResponse>
 }

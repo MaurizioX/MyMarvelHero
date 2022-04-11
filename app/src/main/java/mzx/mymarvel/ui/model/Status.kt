@@ -1,6 +1,6 @@
 package mzx.mymarvel.ui.model
 
-enum class State {
+enum class Status {
     INIT,
     LOADING,
     LOADED,

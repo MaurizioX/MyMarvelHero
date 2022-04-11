@@ -28,11 +28,11 @@ class CharacterServiceImpl @Inject constructor(
                 }
             }
 
-    override suspend fun fetchCharacterDetail(characterID: String): Either<DataError, String> =
+    override suspend fun fetchCharacterDetail(characterID: Int): Either<DataError, CharacterEntity> =
         marvelApiClient.getMarvelCharacterDetail(characterID)
-            .let { response: Response<String> ->
+            .let { response: Response<MarvelListResponse> ->
                 if (response.isSuccessful) {
-                    response.body()?.right()
+                    response.body()?.data?.results?.first()?.let(mapper::map)?.right()
                         ?: DataError.NoBodyResponse.left()
                 } else {
                     mapper.map(response.code()).left()

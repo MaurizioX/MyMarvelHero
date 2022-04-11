@@ -13,7 +13,7 @@ import mzx.mymarvel.data.entity.DataError
 import mzx.mymarvel.domain.usecase.GetCharacterListUseCase
 import mzx.mymarvel.mapper.CharacterElementMapper
 import mzx.mymarvel.ui.model.MarvelCharacterUi
-import mzx.mymarvel.ui.model.State
+import mzx.mymarvel.ui.model.Status
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,11 +24,11 @@ class CharacterListViewModel @Inject constructor(
 
     data class CharacterListState(
         val characters: List<MarvelCharacterUi> = emptyList(),
-        val state: State = State.INIT
+        val status: Status = Status.INIT
     ) {
-        fun isLoading(): CharacterListState = copy(state = State.LOADING)
+        fun isLoading(): CharacterListState = copy(status = Status.LOADING)
         fun elementLoaded(characters: List<MarvelCharacterUi>): CharacterListState =
-            copy(characters = characters, state = State.LOADED)
+            copy(characters = characters, status = Status.LOADED)
 
         fun displayError(): CharacterListState = copy()
 

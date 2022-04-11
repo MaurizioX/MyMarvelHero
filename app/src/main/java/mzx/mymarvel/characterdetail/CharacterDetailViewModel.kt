@@ -7,24 +7,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import mzx.mymarvel.characterlist.CharacterListViewModel
+import mzx.mymarvel.data.entity.CharacterEntity
 import mzx.mymarvel.data.entity.DataError
 import mzx.mymarvel.domain.usecase.GetCharacterDetailUseCase
+import mzx.mymarvel.mapper.CharacterElementMapper
 import mzx.mymarvel.ui.model.MarvelCharacterUi
-import mzx.mymarvel.ui.model.State
+import mzx.mymarvel.ui.model.Status
 import javax.inject.Inject
 
 @HiltViewModel
 class CharacterDetailViewModel @Inject constructor(
     private val getCharacterDetailUseCase: GetCharacterDetailUseCase,
+    private val mapper: CharacterElementMapper
 ) : ViewModel() {
     data class CharacterDetailState(
-        val characters: List<MarvelCharacterUi> = emptyList(),
-        val state: State = State.INIT
+        val character: MarvelCharacterUi? = null,
+        val status: Status = Status.INIT
     ) {
-        fun isLoading(): CharacterDetailState = copy(state = State.LOADING)
-        fun elementLoaded(characters: List<MarvelCharacterUi>): CharacterDetailState =
-            copy(characters = characters, state = State.LOADED)
+        fun isLoading(): CharacterDetailState = copy(status = Status.LOADING)
+        fun elementLoaded(characters: MarvelCharacterUi): CharacterDetailState =
+            copy(character = characters, status = Status.LOADED)
 
         fun displayError(): CharacterDetailState = copy()
 
@@ -34,7 +36,7 @@ class CharacterDetailViewModel @Inject constructor(
     }
 
     sealed interface CharacterDetailEvent {
-        data class Init(val characterID: String) : CharacterDetailEvent
+        data class Init(val characterID: Int) : CharacterDetailEvent
     }
 
     fun onEvent(characterDetailEvent: CharacterDetailEvent) {
@@ -45,16 +47,16 @@ class CharacterDetailViewModel @Inject constructor(
                     getCharacterDetailUseCase.action(characterDetailEvent.characterID)
                         .fold(::handleError, ::handleSuccess)
                 }
+
             }
-//            _state = currentState
+            _state = currentState
         }
     }
 
     private fun handleError(domainError: DataError) = state.displayError()
 
-
-    private fun handleSuccess(characters: String): CharacterListViewModel.CharacterListState =
-        TODO()
+    private fun handleSuccess(character: CharacterEntity): CharacterDetailState =
+        state.elementLoaded(character.let(mapper::map))
 
     val state: CharacterDetailState
         get() = _state
