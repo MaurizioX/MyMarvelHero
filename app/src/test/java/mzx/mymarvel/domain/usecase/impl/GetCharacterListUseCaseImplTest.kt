@@ -28,8 +28,8 @@ class GetCharacterListUseCaseImplTest : Spek({
             )
         }
         val eitherAsd: Either<DataError, List<CharacterEntity>> by memoized { mockk() }
-        val dataError: DomainError by memoized { mockk() }
-        val characterElements: List<CharacterElement> by memoized { mockk() }
+        val dataError: DataError by memoized { mockk() }
+        val characterElements: List<CharacterEntity> by memoized { mockk() }
         lateinit var results: Either<DomainError, List<CharacterElement>>
         beforeEachTest {
             coEvery {

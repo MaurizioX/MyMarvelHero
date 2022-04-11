@@ -1,5 +1,6 @@
 package mzx.mymarvel.characterlist
 
+import arrow.core.left
 import arrow.core.right
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -10,7 +11,8 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import mzx.mymarvel.characterlist.CharacterListViewModel.CharacterListState.Companion.createInitState
-import mzx.mymarvel.domain.element.CharacterElement
+import mzx.mymarvel.data.entity.CharacterEntity
+import mzx.mymarvel.data.entity.DataError
 import mzx.mymarvel.domain.usecase.GetCharacterListUseCase
 import mzx.mymarvel.mapper.CharacterElementMapper
 import org.junit.Assert.assertEquals
@@ -40,8 +42,8 @@ object CharacterListViewModelTest : Spek({
                 )
             }
 
-            describe("View model is load") {
-                val resultList by memoized { emptyList<CharacterElement>() }
+            describe("View model is loaded successfully") {
+                val resultList by memoized { emptyList<CharacterEntity>() }
                 beforeEachTest { coEvery { getCharacterListUseCase.action() } returns resultList.right() }
                 beforeEachTest {
                     viewModel.onEvent(CharacterListViewModel.CharacterListEvent.Init)
@@ -50,6 +52,20 @@ object CharacterListViewModelTest : Spek({
                 describe("Elements returned") {
                     it("Element Returned") {
                         assertEquals(createInitState().elementLoaded(emptyList()), viewModel.state)
+                    }
+                }
+            }
+
+            describe("View model is loaded with error") {
+                val resultError:DataError by memoized { mockk() }
+                beforeEachTest { coEvery { getCharacterListUseCase.action() } returns resultError.left() }
+                beforeEachTest {
+                    viewModel.onEvent(CharacterListViewModel.CharacterListEvent.Init)
+                }
+
+                describe("Elements returned") {
+                    it("Element Returned") {
+                        assertEquals(createInitState().displayError(), viewModel.state)
                     }
                 }
             }

@@ -30,7 +30,7 @@ class CharacterListViewModel @Inject constructor(
         fun elementLoaded(characters: List<MarvelCharacterUi>): CharacterListState =
             copy(characters = characters, status = Status.LOADED)
 
-        fun displayError(): CharacterListState = copy()
+        fun displayError(): CharacterListState = copy(status = Status.ERROR)
 
         companion object {
             fun createInitState() = CharacterListState()
