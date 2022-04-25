@@ -10,6 +10,8 @@ import kotlinx.coroutines.launch
 import mzx.mymarvel.characterlist.CharacterListViewModel.CharacterListState.Companion.createInitState
 import mzx.mymarvel.data.entity.CharacterEntity
 import mzx.mymarvel.data.entity.DataError
+import mzx.mymarvel.domain.element.CharacterElement
+import mzx.mymarvel.domain.element.DomainError
 import mzx.mymarvel.domain.usecase.GetCharacterListUseCase
 import mzx.mymarvel.mapper.CharacterElementMapper
 import mzx.mymarvel.ui.model.MarvelCharacterUi
@@ -55,10 +57,10 @@ class CharacterListViewModel @Inject constructor(
         }
     }
 
-    private fun handleError(domainError: DataError) = state.displayError()
+    private fun handleError(domainError: DomainError) = state.displayError()
 
 
-    private fun handleSuccess(characters: List<CharacterEntity>): CharacterListState =
+    private fun handleSuccess(characters: List<CharacterElement>): CharacterListState =
         state.elementLoaded(characters = characters.map(mapper::map))
 
     val state: CharacterListState

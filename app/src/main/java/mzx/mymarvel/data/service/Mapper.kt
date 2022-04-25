@@ -25,28 +25,28 @@ class Mapper @Inject constructor(private val networkParamFactory: NetworkParamFa
     private fun map(thumbnail: Thumbnail): ThumbnailEntity =
         ThumbnailEntity(extension = thumbnail.extension, path = thumbnail.path)
 
-    private fun map(stories: Stories): StoriesEntity = StoriesEntity(
+    private fun map(stories: Stories): CharacterInfoEntity = CharacterInfoEntity(
         available = stories.available,
         collectionURI = stories.collectionURI,
         items = stories.items.map(::map),
         returned = stories.returned
     )
 
-    private fun map(series: Series): SeriesEntity = SeriesEntity(
+    private fun map(series: Series): CharacterInfoEntity = CharacterInfoEntity(
         available = series.available,
         collectionURI = series.collectionURI,
         items = series.items.map(::map),
         returned = series.returned
     )
 
-    private fun map(events: Events): EventsEntity = EventsEntity(
+    private fun map(events: Events): CharacterInfoEntity = CharacterInfoEntity(
         available = events.available,
         collectionURI = events.collectionURI,
         items = events.items.map(::map),
         returned = events.returned
     )
 
-    private fun map(comics: Comics): ComicsEntity = ComicsEntity(
+    private fun map(comics: Comics): CharacterInfoEntity = CharacterInfoEntity(
         available = comics.available,
         collectionURI = comics.collectionURI,
         items = comics.items.map(::map),

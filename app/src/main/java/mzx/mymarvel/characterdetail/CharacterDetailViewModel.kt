@@ -9,6 +9,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import mzx.mymarvel.data.entity.CharacterEntity
 import mzx.mymarvel.data.entity.DataError
+import mzx.mymarvel.domain.element.CharacterElement
+import mzx.mymarvel.domain.element.DomainError
 import mzx.mymarvel.domain.usecase.GetCharacterDetailUseCase
 import mzx.mymarvel.mapper.CharacterElementMapper
 import mzx.mymarvel.ui.model.MarvelCharacterUi
@@ -53,9 +55,9 @@ class CharacterDetailViewModel @Inject constructor(
         }
     }
 
-    private fun handleError(domainError: DataError) = state.displayError()
+    private fun handleError(domainError: DomainError) = state.displayError()
 
-    private fun handleSuccess(character: CharacterEntity): CharacterDetailState =
+    private fun handleSuccess(character: CharacterElement): CharacterDetailState =
         state.elementLoaded(character.let(mapper::map))
 
     val state: CharacterDetailState

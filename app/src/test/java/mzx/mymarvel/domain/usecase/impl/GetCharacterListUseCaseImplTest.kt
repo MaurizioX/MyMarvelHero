@@ -1,7 +1,6 @@
 package mzx.mymarvel.domain.usecase.impl
 
 import arrow.core.Either
-import arrow.core.left
 import arrow.core.right
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -19,7 +18,7 @@ import org.spekframework.spek2.style.specification.describe
 
 class GetCharacterListUseCaseImplTest : Spek({
     describe("A Use Case") {
-        val characterService: CharacterService by memoized { mockk() }
+        val characterService: mzx.mymarvel.data.service.CharacterService by memoized { mockk() }
         val mapper: DomainMapper by memoized { mockk() }
         val getCharacterListUseCaseImpl by memoized {
             GetCharacterListUseCaseImpl(
